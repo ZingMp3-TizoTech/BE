@@ -28,8 +28,7 @@ async function login(email, password) {
 }
 async function getAllUser() {
   try {
-    const models = await Models.find({ role: "62562a5a4c27f03d629f540b" })
-
+    const models = await Models.find({ role: "62562a5a4c27f03d629f540b" });
     return models
   } catch (error) {
     console.log(error)

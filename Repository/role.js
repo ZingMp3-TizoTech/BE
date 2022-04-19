@@ -10,7 +10,7 @@ async function createRole(params){
                   select: {_id: 1,name:1},
                 })
         return result
-        return rl
+        
     } catch (error) {
         console.log(error);
     }

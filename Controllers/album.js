@@ -18,7 +18,43 @@ async function createAlbum(req, res) {
         console.log(error)
     }
 }
+async function getAllAlbum(req, res)
+{
+    try {
+        const allalbum = await Services.getAllAlbum()
+        console.log(allalbum);
+        if(!allalbum){
+            return res.status(402).json({ status: 402, message: "Album not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: allalbum })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function updateAlbum(req, res)
+{
+    try {
+        var date= new Date()
+        console.log(date);
+        const updated = await Services.updateAlbum(
+            req.params.id,{
+                name: req.body.name,
+                date_create: date,
+                artist:req.body.artist
+            }
+        )
+        console.log(updated);
+        if(!updated){
+            return res.status(402).json({ status: 402, message: "Album not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: updated })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
-    createAlbum
+    createAlbum,
+    getAllAlbum,
+    updateAlbum
    
 }
