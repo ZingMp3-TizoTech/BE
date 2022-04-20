@@ -17,7 +17,25 @@ async function getAllSong()
         console.log(error)
     }
 }
+async function deleteSong(_id){
+    try {
+        const result = await Repository.deleteSong(_id);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function updateSong(id, params){
+    try {
+        const song = await Repository.updateSong(id, params)
+        return song
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createSong,
-    getAllSong
+    getAllSong,
+    deleteSong,
+    updateSong
 }

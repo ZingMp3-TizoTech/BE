@@ -32,7 +32,7 @@ async function getAllAlbum() {
  async function updateAlbum(id,params){
      try {
          const models = await album.findByIdAndUpdate(id,params,{new:true})
-        
+       
          return models
      } catch (error) {
          console.log(error);

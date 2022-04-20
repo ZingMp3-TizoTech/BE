@@ -15,7 +15,7 @@ async function createUser(params) {
 async function login(email, password) {
   try {
     const acc = await Models.findByCredentials(email, password)
-    console.log(acc);
+   
     //   const token = await account.generateAuthToken(username, password)
     if (!acc) {
       return new Error("Login Fails!")

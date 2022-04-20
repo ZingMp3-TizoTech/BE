@@ -16,6 +16,9 @@ const playlist = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    song:[{ type : mongoose.Schema.Types.ObjectId,
+         ref: 'Songs'}
+        ]
 
 })
 const Playlist = mongoose.model('Playlist', playlist)

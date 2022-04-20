@@ -35,8 +35,28 @@ async function getAllSongs() {
       console.log(error)
     }
   }
+  async function deleteSong(_id){
+    try {
+      console.log("id can xoa");
+      console.log(_id);
+      const removed = await songs.findByIdAndDelete(_id)
+      return removed;
+    } catch (error) {
+      console.log(error);     
+    }
+  }
 
+  async function updateSong(id,params){
+    try {
+        const models = await songs.findByIdAndUpdate(id,params,{new:true})
+        return models
+    } catch (error) {
+        console.log(error);
+    }
+} 
 module.exports={
     createSong,
-    getAllSongs
+    getAllSongs,
+    deleteSong,
+    updateSong
 }

@@ -11,7 +11,7 @@ async function Signup(params) {
 async function login(email, password) {
     try {
         const account = await Repository.login(email, password)      
-        console.log(account);
+     
         return account
     } catch (error) {
         console.log(error)
