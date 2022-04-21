@@ -17,7 +17,16 @@ async function login(email, password) {
         console.log(error)
     }
 }
-
+async function changePassword(id,oldPassword,newPassword) {
+    try {
+        console.log('se');
+        console.log(id,oldPassword,newPassword);
+        const account = await Repository.changePassword(id,oldPassword,newPassword)       
+        return account
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function getAllUser()
 {
     try {
@@ -38,6 +47,7 @@ async function deleteUser(_id){
 module.exports = {
     Signup,
     login,
+    changePassword,
     getAllUser,
     deleteUser
 }

@@ -1,13 +1,18 @@
 const Services = require('../Service/user')
 const jwt = require('jsonwebtoken');
+const ServiceRole = require('../Service/role');
+
 require("dotenv").config();
 async function Signup(req, res) {
-    try {
-      
-        const user = await Services.Signup({
+    try {   
+            var role =  req.body.role;
+            const findRole =  await ServiceRole.findRole(role)
+            console.log("log");
+            console.log(findRole);
+            const user = await Services.Signup({
             email: req.body.email,
             password: req.body.password,
-            role:"62562a5a4c27f03d629f540b"
+            role: findRole
         })
 
         if (!user) {
@@ -27,6 +32,29 @@ async function login(req, res) {
             return res.status(400).json({ status: 400, message: "Login Fails!" })
         }
         return res.status(200).json({ status: 200,  token: jwt.sign({ _id: account._id,email:account.email,role:account.role }, process.env.JWT_KEY), message: "Succesfully Login" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function changePassword(req, res) {
+    try {
+        let id=''
+        ///Mã hóa token và trả về ID
+        const token = req.header('Authorization').replace('Bearer ', '')
+         if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+              id=data._id   
+        }  
+        )       
+        console.log("id la");
+        console.log(id);   
+        const { oldPassword, newPassword } = req.body
+        const account = await Services.changePassword(id,oldPassword, newPassword)
+
+        if (!account) {
+            return res.status(400).json({ status: 400, message: "Login Fails!" })
+        }
+        return res.status(200).json({ status: 200, message: "Successfully Change Password" })
     } catch (error) {
         console.log(error)
     }
@@ -63,5 +91,6 @@ module.exports = {
     Signup,
     login,
     getAllUser,
-    deleteUser
+    deleteUser,
+    changePassword
 }

@@ -14,6 +14,21 @@ async function createRole(req, res) {
         console.log(error)
     }
 }
+async function deleteRole(req, res) {
+    try {
+        const _id =req.params.id.toString().trim();
+        console.log(_id);
+        const result =  await Services.deleteRole(_id)
+        console.log(result);
+        if(!result){
+            return res.status(402).json({status:402,message:"delete fails!"})
+        }
+        return res.status(200).json({status:200,message:"delete successfully!"})
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
-    createRole
+    createRole,
+    deleteRole
 }
