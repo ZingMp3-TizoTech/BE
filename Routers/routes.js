@@ -16,14 +16,14 @@ const authenToken = require("../middleware/auth");
 router.post("/role",function(req,res){
     authenToken, ControllerRole.createRole
 } )
-router.delete("/role/:id",function(req,res){
+router.delete("/api/role/:id",function(req,res){
     authenToken, ControllerRole.deleteRole
 })
 //USER
 router.post("/signup", ControllerUser.Signup)
 router.post("/login", ControllerUser.login)
 router.put("/change-password",ControllerUser.changePassword)
-router.get("/user", ControllerUser.getAllUser)
+router.get("/users", ControllerUser.getAllUser)
 router.delete("/user/:id", function(req,res){
     authenToken, ControllerUser.deleteUser
 })
@@ -31,7 +31,7 @@ router.delete("/user/:id", function(req,res){
 router.post("/playlist", ControllerPlaylist.createPlaylist)
 router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
 router.delete("/playlist/:id", ControllerPlaylist.deletePlaylist)
-router.get("/playlist", ControllerPlaylist.getAllPlaylist)
+router.get("/playlists", ControllerPlaylist.getAllPlaylist)
 router.get("/playlist/:id", ControllerPlaylist.getPlaylistByIdUser)
 //GENRE
 router.post("/genre",function(req,res){
@@ -46,7 +46,7 @@ router.post("/artist",function(req,res){
 router.post("/album", function(req,res){
     authenToken, ControllerAlbum.createAlbum
 })
-router.get("/album", function(req,res){
+router.get("/albums", function(req,res){
   ControllerAlbum.getAllAlbum
 })
 router.put("/album/:id", function(req,res){
@@ -56,7 +56,7 @@ router.put("/album/:id", function(req,res){
 router.post("/song/", function(req,res){
     authenToken, ControllerSong.createSong
 })
-router.get("/song", function(req,res){
+router.get("/songs", function(req,res){
     ControllerSong.getAllSong
 })
 router.delete("/song/:id", function(req,res){
