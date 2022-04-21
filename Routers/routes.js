@@ -46,9 +46,7 @@ router.post("/artist",function(req,res){
 router.post("/album", function(req,res){
     authenToken, ControllerAlbum.createAlbum
 })
-router.get("/albums", function(req,res){
-  ControllerAlbum.getAllAlbum
-})
+router.get("/albums",ControllerAlbum.getAllAlbum)
 router.put("/album/:id", function(req,res){
     authenToken, ControllerAlbum.updateAlbum
 })
