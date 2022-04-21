@@ -29,8 +29,8 @@ async function findRole(name){
 }
  async function findRoleByID(id){
     try {
-        const result = await role.find({_id:id})
-       
+        const result = await role.find({_id:id}) 
+        console.log(result);   
         return result
     } catch (error) {
         console.log(error);

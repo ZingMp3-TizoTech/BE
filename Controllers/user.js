@@ -1,7 +1,7 @@
 const Services = require('../Service/user')
 const jwt = require('jsonwebtoken');
 const ServiceRole = require('../Service/role');
-
+const { getInforByToken } = require('../middleware/authToken');
 require("dotenv").config();
 async function Signup(req, res) {
     try {   
@@ -39,7 +39,7 @@ async function login(req, res) {
 async function changePassword(req, res) {
     try {
         let id=''
-        ///Mã hóa token và trả về ID
+        ///Mã hóa token và trả v
         const token = req.header('Authorization').replace('Bearer ', '')
          if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
         jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
@@ -73,11 +73,11 @@ async function getAllUser(req, res)
     }
 }
 
-async function  deleteUser(req,res){
+ function  deleteUser(req,res){
     try {
         const _id =req.params.id.toString().trim();
         console.log(_id);
-        const result =  await Services.deleteUser(_id)
+        const result =   Services.deleteUser(_id)
         console.log(result);
         if(!result){
             return res.status(402).json({status:402,message:"delete fails!"})

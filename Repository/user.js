@@ -38,11 +38,11 @@ async function getAllUser() {
     console.log(error)
   }
 }
- async function deleteUser(_id){
+  function deleteUser(_id){
    try {
      console.log("id can xoa");
      console.log(_id);
-     const removeUser = await Models.findByIdAndDelete(_id)
+     const removeUser =  Models.findByIdAndDelete(_id)
      return removeUser;
    } catch (error) {
      console.log(error);

@@ -40,7 +40,8 @@ async function updateAlbum(req, res)
             req.params.id,{
                 name: req.body.name,
                 date_create: date,
-                artist:req.body.artist
+                artist:req.body.artist,
+                songs:req.body.song
             }
         )
         console.log(updated);

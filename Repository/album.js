@@ -11,6 +11,10 @@ async function createAlbum(params) {
                 path: 'artist',
                 select: { _id: 1, name: 1 },
             })
+            .populate({
+                path: 'Song',
+                select: { _id: 1, name: 1,url:1,image:1 },
+            })
         return result
     } catch (error) {
         console.log(error)

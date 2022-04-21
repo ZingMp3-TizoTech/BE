@@ -36,9 +36,9 @@ async function getAllUser()
         console.log(error)
     }
 }
-async function deleteUser(_id){
+ function deleteUser(_id){
     try {
-        const result = await Repository.deleteUser(_id);
+        const result =  Repository.deleteUser(_id);
         return result;
     } catch (error) {
         console.log(error);

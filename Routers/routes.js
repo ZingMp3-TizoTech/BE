@@ -8,60 +8,62 @@ const ControllerArtist = require('../Controllers/artist');
 const ControllerAlbum = require('../Controllers/album')
 const ControllerSong = require('../Controllers/songs')
 const { required } = require("nodemon/lib/config")
-const authenToken = require("../middleware/auth");
+const {authenToken} = require("../middleware/auth");
+const jwt = require("jsonwebtoken");
+const RepositoryRole = require('../Models/role')
+
+// const authenToken = async (req, res, next) => {
+//   const token = await req.header('Authorization').replace('Bearer ', '')
+//   if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+//   const data = jwt.verify(token, process.env.JWT_KEY)
+//   console.log(data);
+//   try {
+//     console.log(data);
+//     let id = data._id
+//     const rl = await RepositoryRole.findById({ _id: data.role })
+//     if (rl.name == "Admin") {
+//       next()
+//     }
+//     else {
+//       res.status(401).send({ message: 'Not authorized to access this resource' })
+//     }
+//     return id;
+
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 
 
 //ROLE
-router.post("/role",function(req,res){
-    authenToken, ControllerRole.createRole
-} )
-router.delete("/api/role/:id",function(req,res){
-    authenToken, ControllerRole.deleteRole
-})
+router.post("/role/create",authenToken, ControllerRole.createRole)
+router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
 //USER
 router.post("/signup", ControllerUser.Signup)
 router.post("/login", ControllerUser.login)
-router.put("/change-password",ControllerUser.changePassword)
+router.put("/change-password", ControllerUser.changePassword)
 router.get("/users", ControllerUser.getAllUser)
-router.delete("/user/:id", function(req,res){
-    authenToken, ControllerUser.deleteUser
-})
+router.delete("/user/:id", authenToken, ControllerUser.deleteUser)
 //PLAYLIST
 router.post("/playlist", ControllerPlaylist.createPlaylist)
 router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
 router.delete("/playlist/:id", ControllerPlaylist.deletePlaylist)
 router.get("/playlists", ControllerPlaylist.getAllPlaylist)
 router.get("/playlist/:id", ControllerPlaylist.getPlaylistByIdUser)
-//GENRE
-router.post("/genre",function(req,res){
-    authenToken, ControllerGenre.createGenre
-})
-//Artist
-router.post("/artist",function(req,res){
-    authenToken, ControllerArtist.createArtist
-})
+// //GENRE
+router.post("/genre", authenToken, ControllerGenre.createGenre )
+  //Artist
+  / router.post("/artist")
 
-//Album
-router.post("/album", function(req,res){
-    authenToken, ControllerAlbum.createAlbum
-})
-router.get("/albums",ControllerAlbum.getAllAlbum)
-router.put("/album/:id", function(req,res){
-    authenToken, ControllerAlbum.updateAlbum
-})
+// //Album
+router.post("/album/", authenToken, ControllerAlbum.createAlbum )
+router.get("/albums", ControllerAlbum.getAllAlbum)
+router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum )
 //Song
-router.post("/song/", function(req,res){
-    authenToken, ControllerSong.createSong
-})
-router.get("/songs", 
-    ControllerSong.getAllSong
-)
-router.delete("/song/:id", function(req,res){
-    authenToken, ControllerSong.deleteSong
-})
-router.put("/song/:id", function(req,res){
-    authenToken, ControllerSong.updateSong
-})
+router.post("/createSong/",  authenToken, ControllerSong.createSong )
+router.get("/songs", ControllerSong.getAllSong)
+router.delete("/song/:id",)
+router.put("/song/:id", authenToken, ControllerSong.updateSong )
 
 module.exports = router;

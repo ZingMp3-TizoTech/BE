@@ -16,6 +16,10 @@ const album = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist',
     },
+    songs:[{
+        type :mongoose.Schema.Types.ObjectId,
+        ref:'Song'
+    }]
 
 })
 const Album = mongoose.model('Album', album)
