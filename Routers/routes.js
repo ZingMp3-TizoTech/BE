@@ -54,9 +54,9 @@ router.put("/album/:id", function(req,res){
 router.post("/song/", function(req,res){
     authenToken, ControllerSong.createSong
 })
-router.get("/songs", function(req,res){
+router.get("/songs", 
     ControllerSong.getAllSong
-})
+)
 router.delete("/song/:id", function(req,res){
     authenToken, ControllerSong.deleteSong
 })
