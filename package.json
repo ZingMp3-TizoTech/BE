@@ -1,10 +1,6 @@
 {
   "name": "todolist",
   "version": "1.0.0",
-  "engines": {
-    "node": "16.3.1",
-    "npm":"8.3"
-  },
   "description": "",
   "main": "app.js",
   "scripts": {
