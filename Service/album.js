@@ -25,9 +25,18 @@ async function updateAlbum(id, params){
         console.log(error)
     }
 }
+async function deleteAlbum(id){
+    try {
+        const deleted = await Repository.deleteAlbum(id);
+        return deleted;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     createAlbum,
     getAllAlbum,
-    updateAlbum
+    updateAlbum,
+    deleteAlbum
 }

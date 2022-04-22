@@ -4,12 +4,7 @@ async function createRole(params){
     try {
         const rl =  await new role(params)
         await rl.save()
-        const result = await Models.find({_id:acc._id})
-          .populate({
-                  path: 'role',
-                  select: {_id: 1,name:1},
-                })
-        return result
+        return rl
         
     } catch (error) {
         console.log(error);
@@ -20,7 +15,7 @@ async function findRole(name){
         console.log("nameRole");
         console.log(name);
         const result = await role.findOne({name:name})
-        console.log("fintRole la`");
+        console.log("findRole la`");
         console.log( result);
         return result
     } catch (error) {

@@ -2,8 +2,7 @@ const playlist = require('../Models/playlist')
 async function createPlaylist (params){
     try {
         const pl = await new playlist(params)
-        await pl.save()
-      
+        await pl.save()    
            const list=pl; 
           const result = await playlist.find({_id:list._id})
                 .populate({

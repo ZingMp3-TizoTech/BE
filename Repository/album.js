@@ -12,7 +12,7 @@ async function createAlbum(params) {
                 select: { _id: 1, name: 1 },
             })
             .populate({
-                path: 'Song',
+                path: 'songs',
                 select: { _id: 1, name: 1,url:1,image:1 },
             })
         return result
@@ -26,6 +26,9 @@ async function getAllAlbum() {
       .populate({
         path: 'artist',
         select: { _id: 1, name: 1 },
+    }).populate({
+        path: 'songs',
+        select: { _id: 1, name: 1,url:1,image:1 },
     });
       return models
     } catch (error) {
@@ -42,8 +45,17 @@ async function getAllAlbum() {
          console.log(error);
      }
  } 
+ async function deleteAlbum(id){
+     try {
+         const deleted = await album.findByIdAndRemove(id);
+         return deleted
+     } catch (error) {
+         console.log(error);
+     }
+ }
 module.exports = {
     createAlbum,
     getAllAlbum,
-    updateAlbum
+    updateAlbum,
+    deleteAlbum
 }

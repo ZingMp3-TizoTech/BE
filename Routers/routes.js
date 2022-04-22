@@ -7,10 +7,8 @@ const ControllerGenre = require('../Controllers/genre')
 const ControllerArtist = require('../Controllers/artist');
 const ControllerAlbum = require('../Controllers/album')
 const ControllerSong = require('../Controllers/songs')
-const { required } = require("nodemon/lib/config")
 const {authenToken} = require("../middleware/auth");
-const jwt = require("jsonwebtoken");
-const RepositoryRole = require('../Models/role')
+
 
 // const authenToken = async (req, res, next) => {
 //   const token = await req.header('Authorization').replace('Bearer ', '')
@@ -54,14 +52,15 @@ router.get("/playlist/:id", ControllerPlaylist.getPlaylistByIdUser)
 // //GENRE
 router.post("/genre", authenToken, ControllerGenre.createGenre )
   //Artist
-  / router.post("/artist")
+router.post("/artist",authenToken,ControllerArtist.createArtist)
 
 // //Album
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
 router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum )
+router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
 //Song
-router.post("/createSong/",  authenToken, ControllerSong.createSong )
+router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
 router.delete("/song/:id",)
 router.put("/song/:id", authenToken, ControllerSong.updateSong )
