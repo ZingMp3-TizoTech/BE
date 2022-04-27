@@ -54,9 +54,26 @@ async function getAllSongs() {
         console.log(error);
     }
 } 
+async function getAllByArtist(id){
+  try {
+    const song = await songs.find({artist:id})
+    .populate({
+      path: 'artist',
+      select: {_id: 0,name:1},
+    })
+.populate({
+        path:'album',
+        select:{_id:1,name:1}
+    })
+    return song
+  } catch (error) {
+    console.log(error)
+  }
+}
 module.exports={
     createSong,
     getAllSongs,
     deleteSong,
-    updateSong
+    updateSong,
+    getAllByArtist
 }

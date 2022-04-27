@@ -7,7 +7,7 @@ const album = new mongoose.Schema({
         required: true,
        
     },
-    date_create: {
+    created: {
         type: Date,
         required: true,
        

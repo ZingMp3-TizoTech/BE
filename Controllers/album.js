@@ -5,7 +5,7 @@ async function createAlbum(req, res) {
         console.log(date);
         const album = await Services.createAlbum({
             name: req.body.name,
-            date_create: date,
+            created: date,
             artist:req.body.artist,
             songs:req.body.songs
            

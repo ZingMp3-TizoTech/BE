@@ -54,7 +54,7 @@ async function deletePlaylist(_id){
       console.log(error)
     }
   }
-  async function getPlaylistByIdUser(id) {
+  async function getPlaylistByUser(id) {
     try {
       const list = await playlist.find({user:id})
       .populate({
@@ -75,5 +75,5 @@ module.exports={
     updatePlaylist,
     deletePlaylist,
     getAllPlaylist,
-    getPlaylistByIdUser
+    getPlaylistByUser
 }

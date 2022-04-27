@@ -31,7 +31,19 @@ async function getAllSong(req, res) {
         console.log(error)
     }
 }
-
+async function getSongsByArtist(req, res) {
+    try {
+        const id = req.params.id.toString().trim();
+        const allsongs = await Services.getSongsByArtist(id)
+        console.log(allsongs);
+        if (!allsongs) {
+            return res.status(402).json({ status: 402, message: "Artist not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: allsongs })
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function deleteSong(req, res) {
     try {
         const _id = req.params.id.toString().trim();
@@ -71,5 +83,6 @@ module.exports = {
     createSong,
     getAllSong,
     deleteSong,
-    updateSong
+    updateSong,
+    getSongsByArtist
 }

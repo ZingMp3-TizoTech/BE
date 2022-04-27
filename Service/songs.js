@@ -33,9 +33,19 @@ async function updateSong(id, params){
         console.log(error)
     }
 }
+async function getSongsByArtist(id)
+{
+    try {
+        const allsongs = await Repository.getAllByArtist(id)
+        return allsongs
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createSong,
     getAllSong,
+    getSongsByArtist,
     deleteSong,
     updateSong
 }

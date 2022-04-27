@@ -48,12 +48,12 @@ router.post("/playlist", ControllerPlaylist.createPlaylist)
 router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
 router.delete("/playlist/:id", ControllerPlaylist.deletePlaylist)
 router.get("/playlists", ControllerPlaylist.getAllPlaylist)
-router.get("/playlist/:id", ControllerPlaylist.getPlaylistByIdUser)
+router.get("/playlist/:id", ControllerPlaylist.getPlaylistByUser)
 // //GENRE
 router.post("/genre", authenToken, ControllerGenre.createGenre )
   //Artist
 router.post("/artist",authenToken,ControllerArtist.createArtist)
-
+router.get("/artists",ControllerArtist.getAllArtist)
 // //Album
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
@@ -63,6 +63,7 @@ router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
 router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
 router.delete("/song/:id",)
-router.put("/song/:id", authenToken, ControllerSong.updateSong )
+router.put("/song/:id", authenToken, ControllerSong.updateSong)
+router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
 
 module.exports = router;

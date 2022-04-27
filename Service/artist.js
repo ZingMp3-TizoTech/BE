@@ -8,8 +8,17 @@ async function createArtists(params){
         console.log(error)
     }
 }
+async function getAllArtist(){
+    try {
+        const all = await Artist.getAllArtist()
+        return all;
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
    
-    createArtists
+    createArtists,
+    getAllArtist
 }
  

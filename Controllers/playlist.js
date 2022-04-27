@@ -66,10 +66,10 @@ async function getAllPlaylist(req, res) {
         console.log(error)
     }
 }
-async function getPlaylistByIdUser(req,res) {
+async function getPlaylistByUser(req,res) {
     try {
         const id = req.params.id.toString().trim();
-        const all = await Services.getPlaylistByIdUser(id)
+        const all = await Services.getPlaylistByUser(id)
         console.log(all);
         if (!all) {
             return res.status(402).json({ status: 402, message: "Playlist not exist!" })
@@ -84,6 +84,6 @@ module.exports = {
     updatePlaylist,
     deletePlaylist,
     getAllPlaylist,
-    getPlaylistByIdUser
+    getPlaylistByUser
    
 }

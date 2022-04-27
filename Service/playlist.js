@@ -33,10 +33,10 @@ async function getAllPlaylist()
         console.log(error)
     }
 }
-async function getPlaylistByIdUser(id)
+async function getPlaylistByUser(id)
 {
     try {
-        const byID = await Repository.getPlaylistByIdUser(id)
+        const byID = await Repository.getPlaylistByUser(id)
         return byID
     } catch (error) {
         console.log(error)
@@ -47,5 +47,5 @@ module.exports = {
     updatePlaylist,
     deletePlaylist,
     getAllPlaylist,
-    getPlaylistByIdUser
+    getPlaylistByUser
 }

@@ -17,6 +17,20 @@ async function createArtist(req, res) {
         console.log(error)
     }
 }
+async function getAllArtist(req, res)
+{
+    try {
+        const all = await Services.getAllArtist()
+       
+        if(!all){
+            return res.status(402).json({ status: 402, message: "Artist not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: all })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
-    createArtist
+    createArtist,
+    getAllArtist
 }

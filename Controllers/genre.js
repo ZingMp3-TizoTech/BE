@@ -14,6 +14,13 @@ async function createGenre(req, res) {
         console.log(error)
     }
 }
+async function getAllArtist(req,res){
+    try {
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     createGenre
 }
