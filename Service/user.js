@@ -44,10 +44,20 @@ async function getAllUser()
         console.log(error);
     }
 }
+async function getUserByID(id){
+    try {
+      
+        const account = await Repository.getUserByID(id)       
+        return account
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     Signup,
     login,
     changePassword,
     getAllUser,
-    deleteUser
+    deleteUser,
+    getUserByID
 }

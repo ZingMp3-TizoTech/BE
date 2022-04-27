@@ -42,6 +42,7 @@ router.post("/signup", ControllerUser.Signup)
 router.post("/login", ControllerUser.login)
 router.put("/change-password", ControllerUser.changePassword)
 router.get("/users", ControllerUser.getAllUser)
+router.get("/user/profile", ControllerUser.getUserByID)
 router.delete("/user/:id", authenToken, ControllerUser.deleteUser)
 //PLAYLIST
 router.post("/playlist", ControllerPlaylist.createPlaylist)

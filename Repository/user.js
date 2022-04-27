@@ -68,10 +68,20 @@ async function getAllUser() {
     console.log(error);
   }
 }
+async function getUserByID(id){
+  try {
+  
+    const models = await Models.find({_id:id});
+    return models
+  } catch (error) {
+    console.log(error)
+  }
+}
 module.exports = {
   login,
   createUser,
   getAllUser,
   deleteUser,
-  changePassword
+  changePassword,
+  getUserByID
 }

@@ -87,10 +87,33 @@ function deleteUser(req, res) {
         console.log(error);
     }
 }
+async function getUserByID(req, res) {
+    try {
+        let id = ''
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log("id la");
+        console.log(id);
+      
+        const account = await Services.getUserByID(id)
+
+        if (!account) {
+            return res.status(400).json({ status: 400, message: "Failed" })
+        }
+        return res.status(200).json({ status: 200,data:account, message: "Successful" })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     Signup,
     login,
     getAllUser,
     deleteUser,
-    changePassword
+    changePassword,
+    getUserByID
 }
