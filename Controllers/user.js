@@ -2,6 +2,7 @@ const Services = require('../Service/user')
 const jwt = require('jsonwebtoken');
 const ServiceRole = require('../Service/role');
 const { getInforByToken } = require('../middleware/authToken');
+const { checkEmail } = require('../Repository/user');
 require("dotenv").config();
 async function Signup(req, res) {
     try {
@@ -10,16 +11,20 @@ async function Signup(req, res) {
         if (!findRole) {
             return res.status(400).json({ status: 400, message: "Creating failed user!" })
         }
-        const user = await Services.Signup({
-            email: req.body.email,
-            password: req.body.password,
-            role: findRole
-        })
-
-        if (!user) {
-            return res.status(400).json({ status: 400, message: "Creating failed user!" })
-        } else
-            return res.status(200).json({ status: 200, data: user, message: "Create user succesfully!" })
+        const checked = await checkEmail(req.body.email)
+        console.log("check email", checked);
+        if (!checked) {
+            const user = await Services.Signup({
+                email: req.body.email,
+                password: req.body.password,
+                role: findRole
+            })
+            if (!user) {
+                return res.status(400).json({ status: 400, message: "Creating failed user!" })
+            } else
+                return res.status(200).json({ status: 200, data: user, message: "Create user succesfully!" })
+        }
+        else return res.status(205 ).json({ status: 205, message: "Email already exists, please try again!" })
     } catch (error) {
         console.log(error)
     }
@@ -98,13 +103,13 @@ async function getUserByID(req, res) {
         )
         console.log("id la");
         console.log(id);
-      
+
         const account = await Services.getUserByID(id)
 
         if (!account) {
             return res.status(400).json({ status: 400, message: "Failed" })
         }
-        return res.status(200).json({ status: 200,data:account, message: "Successful" })
+        return res.status(200).json({ status: 200, data: account, message: "Successful" })
     } catch (error) {
         console.log(error)
     }

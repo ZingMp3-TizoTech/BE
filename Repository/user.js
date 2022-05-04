@@ -4,7 +4,6 @@ async function createUser(params) {
   try {
     const user = await new Models(params)
     await user.save()
-
     const acc = user;
     const result = await Models.find({ _id: acc._id }).populate({
       path: 'role',
@@ -69,12 +68,25 @@ async function getAllUser() {
   }
 }
 async function getUserByID(id){
-  try {
-  
+  try {  
     const models = await Models.find({_id:id});
     return models
   } catch (error) {
     console.log(error)
+  }
+}
+async function checkEmail(Email){
+  try {
+    console.log("email la");
+    console.log(Email);
+    const checked = await Models.findOne({email:Email});
+    console.log("da check");
+    console.log(checked);
+    if(checked){
+      return checked
+    }  
+  } catch (error) {
+    console.log(error);
   }
 }
 module.exports = {
@@ -83,5 +95,6 @@ module.exports = {
   getAllUser,
   deleteUser,
   changePassword,
-  getUserByID
+  getUserByID,
+  checkEmail
 }

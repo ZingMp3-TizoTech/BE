@@ -5,7 +5,8 @@ async function createArtist(req, res) {
             name: req.body.name,
             gender:req.body.gender,
             age:req.body.age,
-            genre:req.body.genre
+            genre:req.body.genre,
+            image: req.body.image
         })
         if (!a) {
             return res.status(400).json({ status: 400, message: "Creating failed Artist!" })

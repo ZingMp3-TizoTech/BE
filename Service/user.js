@@ -2,33 +2,34 @@ const Repository = require('../Repository/user')
 
 async function Signup(params) {
     try {
-        const acc = await Repository.createUser(params)
-        return acc
+       
+            const acc = await Repository.createUser(params)
+            return acc
+      
     } catch (error) {
         console.log(error)
     }
 }
 async function login(email, password) {
     try {
-        const account = await Repository.login(email, password)      
-     
+        const account = await Repository.login(email, password)
+
         return account
     } catch (error) {
         console.log(error)
     }
 }
-async function changePassword(id,oldPassword,newPassword) {
+async function changePassword(id, oldPassword, newPassword) {
     try {
         console.log('se');
-        console.log(id,oldPassword,newPassword);
-        const account = await Repository.changePassword(id,oldPassword,newPassword)       
+        console.log(id, oldPassword, newPassword);
+        const account = await Repository.changePassword(id, oldPassword, newPassword)
         return account
     } catch (error) {
         console.log(error)
     }
 }
-async function getAllUser()
-{
+async function getAllUser() {
     try {
         const user = await Repository.getAllUser()
         return user
@@ -36,18 +37,18 @@ async function getAllUser()
         console.log(error)
     }
 }
- function deleteUser(_id){
+function deleteUser(_id) {
     try {
-        const result =  Repository.deleteUser(_id);
+        const result = Repository.deleteUser(_id);
         return result;
     } catch (error) {
         console.log(error);
     }
 }
-async function getUserByID(id){
+async function getUserByID(id) {
     try {
-      
-        const account = await Repository.getUserByID(id)       
+
+        const account = await Repository.getUserByID(id)
         return account
     } catch (error) {
         console.log(error)

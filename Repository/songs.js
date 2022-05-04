@@ -8,7 +8,7 @@ async function createSong (params){
         const result = await songs.find({_id:song._id})
           .populate({
                   path: 'artist',
-                  select: {_id: 1,name:1},
+                  select: {_id: 1,name:1,image:1},
                 })
            .populate({
                     path:'album',
@@ -24,7 +24,7 @@ async function getAllSongs() {
       const song = await songs.find({})
       .populate({
         path: 'artist',
-        select: {_id: 1,name:1},
+        select: {_id: 1,name:1,image:1},
       })
  .populate({
           path:'album',
@@ -59,7 +59,7 @@ async function getAllByArtist(id){
     const song = await songs.find({artist:id})
     .populate({
       path: 'artist',
-      select: {_id: 0,name:1},
+      select: {_id: 0,name:1,image:1},
     })
 .populate({
         path:'album',
