@@ -58,6 +58,7 @@ router.get("/artists",ControllerArtist.getAllArtist)
 // //Album
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
+router.get("/album/", ControllerAlbum.getAlbumByID)
 router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum )
 router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
 //Song

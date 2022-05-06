@@ -32,6 +32,19 @@ async function getAllAlbum(req, res)
         console.log(error)
     }
 }
+async function getAlbumByID(req, res)
+{
+    try {
+        const album = await Services.getAlbumByID(req.query.id)
+        
+        if(!album){
+            return res.status(402).json({ status: 402, message: "Album not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: album })
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function updateAlbum(req, res)
 {
     try {
@@ -70,6 +83,6 @@ module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
-    deleteAlbum
-   
+    deleteAlbum,
+    getAlbumByID 
 }

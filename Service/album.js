@@ -17,6 +17,15 @@ async function getAllAlbum()
         console.log(error)
     }
 }
+async function getAlbumByID(id)
+{
+    try {
+        const album = await Repository.getAlbumByID(id)
+        return album
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function updateAlbum(id, params){
     try {
         const album = await Repository.updateAlbum(id, params)
@@ -38,5 +47,6 @@ module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
-    deleteAlbum
+    deleteAlbum,
+    getAlbumByID
 }

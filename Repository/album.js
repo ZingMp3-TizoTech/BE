@@ -35,7 +35,21 @@ async function getAllAlbum() {
       console.log(error)
     }
   }
-
+  async function getAlbumByID(id) {
+    try {
+      const models = await album.find({_id:id})
+      .populate({
+        path: 'artist',
+        select: { _id: 1, name: 1,image:1 },
+    }).populate({
+        path: 'songs',
+        select: { _id: 1, name: 1,url:1,image:1 },
+    });
+      return models
+    } catch (error) {
+      console.log(error)
+    }
+  }
  async function updateAlbum(id,params){
      try {
          const models = await album.findByIdAndUpdate(id,params,{new:true})
@@ -57,5 +71,6 @@ module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
-    deleteAlbum
+    deleteAlbum,
+    getAlbumByID
 }
