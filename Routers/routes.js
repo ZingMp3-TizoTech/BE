@@ -9,31 +9,6 @@ const ControllerAlbum = require('../Controllers/album')
 const ControllerSong = require('../Controllers/songs')
 const {authenToken} = require("../middleware/auth");
 
-
-// const authenToken = async (req, res, next) => {
-//   const token = await req.header('Authorization').replace('Bearer ', '')
-//   if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
-//   const data = jwt.verify(token, process.env.JWT_KEY)
-//   console.log(data);
-//   try {
-//     console.log(data);
-//     let id = data._id
-//     const rl = await RepositoryRole.findById({ _id: data.role })
-//     if (rl.name == "Admin") {
-//       next()
-//     }
-//     else {
-//       res.status(401).send({ message: 'Not authorized to access this resource' })
-//     }
-//     return id;
-
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-
-
 //ROLE
 router.post("/role/create",authenToken, ControllerRole.createRole)
 router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
@@ -50,8 +25,11 @@ router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
 router.delete("/playlist/:id", ControllerPlaylist.deletePlaylist)
 router.get("/playlists", ControllerPlaylist.getAllPlaylist)
 router.get("/playlist/:id", ControllerPlaylist.getPlaylistByUser)
+router.put("/playlist/add/:id", ControllerPlaylist.addSongToPlaylist )
+router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
 // //GENRE
-router.post("/genre", authenToken, ControllerGenre.createGenre )
+router.post("/genre", authenToken, ControllerGenre.createGenre)
+router.get("/genres", ControllerGenre.getAllGenre)
   //Artist
 router.post("/artist",authenToken,ControllerArtist.createArtist)
 router.get("/artists",ControllerArtist.getAllArtist)
@@ -61,6 +39,8 @@ router.get("/albums", ControllerAlbum.getAllAlbum)
 router.get("/album/", ControllerAlbum.getAlbumByID)
 router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum )
 router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
+router.put("/album/add/:id", ControllerAlbum.addSongToAlbum )
+router.put("/album/remove/:id", ControllerAlbum.removeSongFromAlbum )
 //Song
 router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
