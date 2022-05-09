@@ -79,11 +79,48 @@ async function getPlaylistByUser(req,res) {
         console.log(error)
     }
 }
+async function addSongToPlaylist(req, res)
+{
+    try {
+      
+        const updated = await Services.addSongToPlaylist(
+            req.params.id,{               
+                song:req.body.song
+            }
+        )
+      
+        if(!updated){
+            return res.status(402).json({ status: 402, message: "Playlist not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: updated })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function removeSongFromPlaylist(req, res)
+{
+    try {
+      
+        const removed = await Services.removeSongFromPlaylist(
+            req.params.id,{               
+                song:req.body.song
+            }
+        )       
+        if(!removed){
+            return res.status(402).json({ status: 402, message: "Playlist not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: removed })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createPlaylist,
     updatePlaylist,
     deletePlaylist,
     getAllPlaylist,
-    getPlaylistByUser
+    getPlaylistByUser,
+    addSongToPlaylist,
+    removeSongFromPlaylist
    
 }

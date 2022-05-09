@@ -70,10 +70,39 @@ async function deletePlaylist(_id){
       console.log(error)
     }
   }
+  async function addSongToPlaylist(id,params){
+    
+    try {
+       const added=  playlist.findOneAndUpdate(
+           { _id: id }, 
+           { $addToSet: { song:params.songs} 
+          } 
+       );
+     
+     return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function removeSongFromPlaylist(id,params){
+  console.log(id);
+  console.log(params.songs);
+  try {
+     const removed=  playlist.findOneAndUpdate(
+         { _id: id }, 
+         { $pullAll: { song: [params.songs] } } 
+     );
+   return removed;
+  } catch (error) {
+      console.log(error);
+  }
+}
 module.exports={
     createPlaylist,
     updatePlaylist,
     deletePlaylist,
     getAllPlaylist,
-    getPlaylistByUser
+    getPlaylistByUser,
+    addSongToPlaylist,
+    removeSongFromPlaylist
 }

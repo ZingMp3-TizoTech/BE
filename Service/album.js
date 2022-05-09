@@ -42,11 +42,29 @@ async function deleteAlbum(id){
         console.log(error);
     }
 }
+async function addSongToAlbum(id,params){
+    try {
+        const added = await Repository.addSongToAlbum(id,params);
+        return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function removeSongFromAlbum(id,params){
+    try {
+        const added = await Repository.removeSongFromAlbum(id,params);
+        return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
     deleteAlbum,
-    getAlbumByID
+    getAlbumByID,
+    addSongToAlbum,
+    removeSongFromAlbum
 }

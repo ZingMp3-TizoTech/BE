@@ -79,10 +79,48 @@ async function deleteAlbum(req,res){
         console.log(error);
     }
 }
+async function addSongToAlbum(req, res)
+{
+    try {
+      
+        const updated = await Services.addSongToAlbum(
+            req.params.id,{               
+                songs:req.body.song
+            }
+        )
+        console.log(updated);
+        if(!updated){
+            return res.status(402).json({ status: 402, message: "Album not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: updated })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function removeSongFromAlbum(req, res)
+{
+    try {
+      
+        const removed = await Services.removeSongFromAlbum(
+            req.params.id,{               
+                songs:req.body.song
+            }
+        )
+        console.log(removed);
+        if(!removed){
+            return res.status(402).json({ status: 402, message: "Album not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: removed })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
     deleteAlbum,
-    getAlbumByID 
+    getAlbumByID,
+    addSongToAlbum ,
+    removeSongFromAlbum
 }

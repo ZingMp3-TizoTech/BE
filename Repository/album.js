@@ -67,10 +67,38 @@ async function getAllAlbum() {
          console.log(error);
      }
  }
+ async function addSongToAlbum(id,params){
+     console.log(id);
+     console.log(params.songs);
+     try {
+        const added=  album.findOneAndUpdate(
+            { _id: id }, 
+            { $addToSet: { songs: params.songs } } 
+        );
+      return added;
+     } catch (error) {
+         console.log(error);
+     }
+ }
+ async function removeSongFromAlbum(id,params){
+    console.log(id);
+    console.log(params.songs);
+    try {
+       const added=  album.findByIdAndUpdate(
+           { _id: id }, 
+           { $pullAll: { songs: [params.songs] } } 
+       );
+     return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     createAlbum,
     getAllAlbum,
     updateAlbum,
     deleteAlbum,
-    getAlbumByID
+    getAlbumByID,
+    addSongToAlbum,
+    removeSongFromAlbum
 }
