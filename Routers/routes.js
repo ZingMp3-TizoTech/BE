@@ -30,6 +30,8 @@ router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
 // //GENRE
 router.post("/genre", authenToken, ControllerGenre.createGenre)
 router.get("/genres", ControllerGenre.getAllGenre)
+router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
+router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
   //Artist
 router.post("/artist",authenToken,ControllerArtist.createArtist)
 router.get("/artists",ControllerArtist.getAllArtist)
