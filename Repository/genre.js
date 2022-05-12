@@ -17,7 +17,28 @@ async function getAllGenre() {
       console.log(error)
     }
   }
+async function updateGenre(id,params){
+  try{
+    console.log(id);
+    const model = await genre.findByIdAndUpdate(id, params,{new:true});
+    return model;
+  } catch(error) {
+    console.log(error);
+  }
+}
+async function deleteGenre(id){
+  try{
+    console.log(id);
+    const removed = await genre.findByIdAndDelete({_id:id})
+    return removed
+  } catch (error){
+    console.log(error);
+  }
+}
+
 module.exports={
     createGenre,
-    getAllGenre
+    getAllGenre,
+    deleteGenre,
+    updateGenre
 }
