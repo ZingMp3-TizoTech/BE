@@ -1,22 +1,108 @@
 const playlist = require('../Models/playlist')
-
 async function createPlaylist (params){
     try {
         const pl = await new playlist(params)
-        await pl.save()
-      
+        await pl.save()    
            const list=pl; 
           const result = await playlist.find({_id:list._id})
-          .populate({
+                .populate({
                   path: 'user',
                   select: {_id: 1,email:1},
                 })
+                .populate({
+                    path: 'song',
+                    select: {_id: 1,name:1,url:1,artist:1,image:1,album:1},
+                  })
         return result
     } catch (error) {
         console.log(error)
     }
 }
 
+async function updatePlaylist(id,params){
+    try {
+        const models = await playlist.findByIdAndUpdate(id,params,{new:true})
+       
+        return models
+    } catch (error) {
+        console.log(error);
+    }
+} 
+async function deletePlaylist(_id){
+    try {
+      console.log("id can xoa");
+      console.log(_id);
+      const removed = await playlist.findByIdAndDelete(_id)
+      return removed;
+    } catch (error) {
+      console.log(error);     
+    }
+  }
+  async function getAllPlaylist() {
+    try {
+      const list = await playlist.find({})
+      .populate({
+        path: 'user',
+        select: {_id: 1,email:1}  
+      })
+      .populate({
+        path: 'song',
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1},
+      })
+      return list
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async function getPlaylistByUser(id) {
+    try {
+      const list = await playlist.find({user:id})
+      .populate({
+        path: 'user',
+        select: {_id: 1,email:1},       
+      })
+      .populate({
+        path: 'song',
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1},
+      })
+      return list
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async function addSongToPlaylist(id,params){
+    
+    try {
+       const added=  playlist.findOneAndUpdate(
+           { _id: id }, 
+           { $addToSet: { song:params.songs} 
+          } 
+       );
+     
+     return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function removeSongFromPlaylist(id,params){
+  console.log(id);
+  console.log(params.songs);
+  try {
+     const removed=  playlist.findOneAndUpdate(
+         { _id: id }, 
+         { $pullAll: { song: [params.songs] } } 
+     );
+   return removed;
+  } catch (error) {
+      console.log(error);
+  }
+}
 module.exports={
-    createPlaylist
+    createPlaylist,
+    updatePlaylist,
+    deletePlaylist,
+    getAllPlaylist,
+    getPlaylistByUser,
+    addSongToPlaylist,
+    removeSongFromPlaylist
 }

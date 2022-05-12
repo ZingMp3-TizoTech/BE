@@ -7,7 +7,7 @@ const album = new mongoose.Schema({
         required: true,
        
     },
-    date_create: {
+    created: {
         type: Date,
         required: true,
        
@@ -16,6 +16,10 @@ const album = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist',
     },
+    songs:[{
+        type :mongoose.Schema.Types.ObjectId,
+        ref:'Songs'
+    }]
 
 })
 const Album = mongoose.model('Album', album)

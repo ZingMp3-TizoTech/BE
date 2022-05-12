@@ -8,8 +8,17 @@ async function createGenre(params){
         console.log(error)
     }
 }
+async function getAllGenre(){
+    try {
+        const gn = await genre.getAllGenre()
+        return gn
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
    
-    createGenre
+    createGenre,
+    getAllGenre
 }
  

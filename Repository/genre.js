@@ -9,7 +9,15 @@ async function createGenre(params){
         console.log(error);
     }
 }
-
+async function getAllGenre() {
+    try {
+      const list = await genre.find({})  
+      return list
+    } catch (error) {
+      console.log(error)
+    }
+  }
 module.exports={
-    createGenre
+    createGenre,
+    getAllGenre
 }

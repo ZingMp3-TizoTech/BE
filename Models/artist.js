@@ -10,6 +10,9 @@ const artists = new mongoose.Schema({
     gender: {
         type: String,
     },
+    image:{
+        type:[String]
+    },
     age: {
         type: Number,
     },

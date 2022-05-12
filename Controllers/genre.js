@@ -14,6 +14,19 @@ async function createGenre(req, res) {
         console.log(error)
     }
 }
+async function getAllGenre(req,res){
+    try {
+        const all = await Services.getAllGenre()
+        console.log(all);
+        if (!all) {
+            return res.status(402).json({ status: 402, message: "Genre not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: all })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
-    createGenre
+    createGenre,
+    getAllGenre
 }

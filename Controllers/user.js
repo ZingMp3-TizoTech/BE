@@ -1,19 +1,30 @@
 const Services = require('../Service/user')
 const jwt = require('jsonwebtoken');
+const ServiceRole = require('../Service/role');
+const { getInforByToken } = require('../middleware/authToken');
+const { checkEmail } = require('../Repository/user');
 require("dotenv").config();
 async function Signup(req, res) {
     try {
-        console.log(req.body);
-        const user = await Services.Signup({
-            email: req.body.email,
-            password: req.body.password,
-            role:"62562a5a4c27f03d629f540b"
-        })
-
-        if (!user) {
+        var role = req.body.role;
+        const findRole = await ServiceRole.findRole(role)
+        if (!findRole) {
             return res.status(400).json({ status: 400, message: "Creating failed user!" })
-        } else
-            return res.status(200).json({ status: 200, data: user, message: "Create user succesfully!" })
+        }
+        const checked = await checkEmail(req.body.email)
+        console.log("check email", checked);
+        if (!checked) {
+            const user = await Services.Signup({
+                email: req.body.email,
+                password: req.body.password,
+                role: findRole
+            })
+            if (!user) {
+                return res.status(400).json({ status: 400, message: "Creating failed user!" })
+            } else
+                return res.status(200).json({ status: 200, data: user, message: "Create user succesfully!" })
+        }
+        else return res.status(205 ).json({ status: 205, message: "Email already exists, please try again!" })
     } catch (error) {
         console.log(error)
     }
@@ -21,48 +32,93 @@ async function Signup(req, res) {
 async function login(req, res) {
     try {
         const { email, password } = req.body
-        console.log(req.body);
         const account = await Services.login(email, password)
 
         if (!account) {
             return res.status(400).json({ status: 400, message: "Login Fails!" })
         }
-        return res.status(200).json({ status: 200,  token: jwt.sign({ _id: account._id,email:account.email,role:account.role }, process.env.JWT_KEY), message: "Succesfully Login" })
+        return res.status(200).json({ status: 200, token: jwt.sign({ _id: account._id, email: account.email, role: account.role }, process.env.JWT_KEY), message: "Succesfully Login" })
     } catch (error) {
         console.log(error)
     }
 }
-async function getAllUser(req, res)
-{
+async function changePassword(req, res) {
+    try {
+        let id = ''
+        ///Mã hóa token và trả v
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log("id la");
+        console.log(id);
+        const { oldPassword, newPassword } = req.body
+        const account = await Services.changePassword(id, oldPassword, newPassword)
+
+        if (!account) {
+            return res.status(400).json({ status: 400, message: "Login Fails!" })
+        }
+        return res.status(200).json({ status: 200, message: "Successfully Change Password" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function getAllUser(req, res) {
     try {
         const alluser = await Services.getAllUser()
         console.log(alluser);
-        if(!alluser){
+        if (!alluser) {
             return res.status(402).json({ status: 402, message: "Users not exist!" })
         }
-        return res.status(200).json({ status: 200,data: alluser })
+        return res.status(200).json({ status: 200, data: alluser })
     } catch (error) {
         console.log(error)
     }
 }
 
-async function  deleteUser(req,res){
+function deleteUser(req, res) {
     try {
-        const _id =req.params.id.toString().trim();
+        const _id = req.params.id.toString().trim();
         console.log(_id);
-        const result =  await Services.deleteUser(_id)
+        const result = Services.deleteUser(_id)
         console.log(result);
-        if(!result){
-            return res.status(402).json({status:402,message:"delete fails!"})
+        if (!result) {
+            return res.status(402).json({ status: 402, message: "delete fails!" })
         }
-        return res.status(200).json({status:200,message:"delete successfully!"})
+        return res.status(200).json({ status: 200, message: "delete successfully!" })
     } catch (error) {
         console.log(error);
+    }
+}
+async function getUserByID(req, res) {
+    try {
+        let id = ''
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log("id la");
+        console.log(id);
+
+        const account = await Services.getUserByID(id)
+
+        if (!account) {
+            return res.status(400).json({ status: 400, message: "Failed" })
+        }
+        return res.status(200).json({ status: 200, data: account, message: "Successful" })
+    } catch (error) {
+        console.log(error)
     }
 }
 module.exports = {
     Signup,
     login,
     getAllUser,
-    deleteUser
+    deleteUser,
+    changePassword,
+    getUserByID
 }

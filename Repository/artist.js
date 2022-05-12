@@ -20,7 +20,10 @@ async function createArtist (params){
   async function getAllArtist()
 {
     try {
-        const models = await Artist.find({})
+        const models = await Artist.find({}).populate({
+            path: 'genre',
+            select: {_id: 1,zone:1},
+          })
       
         return models
     } catch (error) {
