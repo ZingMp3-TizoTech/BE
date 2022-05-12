@@ -73,9 +73,9 @@ async function deletePlaylist(_id){
   async function addSongToPlaylist(id,params){
     
     try {
-       const added=  playlist.findOneAndUpdate(
+       const added=  playlist.findByIdAndUpdate(
            { _id: id }, 
-           { $addToSet: { song:params.songs} 
+           { $addToSet: { song:params.song} 
           } 
        );
      
@@ -85,12 +85,11 @@ async function deletePlaylist(_id){
     }
 }
 async function removeSongFromPlaylist(id,params){
-  console.log(id);
-  console.log(params.songs);
+
   try {
-     const removed=  playlist.findOneAndUpdate(
+     const removed=  playlist.findByIdAndUpdate(
          { _id: id }, 
-         { $pullAll: { song: [params.songs] } } 
+         { $pullAll: { song: [params.song] } } 
      );
    return removed;
   } catch (error) {
