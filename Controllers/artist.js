@@ -1,8 +1,19 @@
 const Services = require('../Service/artist')
 async function createArtist(req, res) {
     try {
+        var date= new Date()
+        console.log(date);
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const a = await Services.createArtists({
-            name: req.body.name,
+            name: name,
             gender:req.body.gender,
             age:req.body.age,
             genre:req.body.genre,

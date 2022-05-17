@@ -3,8 +3,18 @@ async function createPlaylist(req, res) {
     try {
         var date= new Date()
         console.log(date);
+       
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const playlist = await Services.createPlaylist({
-            name: req.body.name,
+            name: name,
             date_create: date,
             user:req.body.user,
             song:req.body.song
@@ -23,9 +33,18 @@ async function updatePlaylist(req, res)
     try {
         var date= new Date()
         console.log(date);
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const updated = await Services.updatePlaylist(
             req.params.id,{
-                name: req.body.name,
+                name: name,
                 date_create: date,
                 user:req.body.user,
                 song:req.body.song

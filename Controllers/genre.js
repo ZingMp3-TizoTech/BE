@@ -60,10 +60,24 @@ async function updateGenre(req, res) {
         console.log(error);
     }
 }
+async function getAllSongByGenre(req, res) {
+    try {
+        console.log(req.params.id);
+        const all = await Services.getAllSongByGenre(req.params.id )
+        console.log(all);
+        if(!all) {
+            return res.status(402).json({status: 402, message:" fail!"})
+        }
+        return res.status(200).json({status:200,data:all, message:" successfully"})
+    } catch(error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     createGenre,
     getAllGenre,
     deleteGenre,
-    updateGenre
+    updateGenre,
+    getAllSongByGenre
 }

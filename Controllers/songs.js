@@ -1,9 +1,17 @@
 const Services = require('../Service/songs')
 async function createSong(req, res) {
     try {
-
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const song = await Services.createSong({
-            name: req.body.name,
+            name: name,
             url: req.body.url,
             artist: req.body.artist,
             image: req.body.image,
@@ -60,10 +68,18 @@ async function deleteSong(req, res) {
 }
 async function updateSong(req, res) {
     try {
-
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const updated = await Services.updateSong(
             req.params.id, {
-            name: req.body.name,
+            name: name,
             url: req.body.url,
             artist: req.body.artist,
             image: req.body.image,

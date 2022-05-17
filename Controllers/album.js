@@ -3,8 +3,17 @@ async function createAlbum(req, res) {
     try {
         var date= new Date()
         console.log(date);
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const album = await Services.createAlbum({
-            name: req.body.name,
+            name: name,
             created: date,
             artist:req.body.artist,
             songs:req.body.songs
@@ -50,9 +59,18 @@ async function updateAlbum(req, res)
     try {
         var date= new Date()
         console.log(date);
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
         const updated = await Services.updateAlbum(
             req.params.id,{
-                name: req.body.name,
+                name: name,
                 date_create: date,
                 artist:req.body.artist,
                 songs:req.body.song
