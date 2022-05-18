@@ -42,9 +42,9 @@ async function getAllAlbum(req, res)
     }
 }
 async function getAlbumByID(req, res)
-{
+{   
     try {
-        const album = await Services.getAlbumByID(req.query.id)
+        const album = await Services.getAlbumByID(req.params.id)
         
         if(!album){
             return res.status(402).json({ status: 402, message: "Album not exist!" })
