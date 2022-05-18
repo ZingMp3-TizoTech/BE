@@ -30,8 +30,17 @@ async function createArtist (params){
         console.log(error)
     }
 }
-
+async function updateArtist(id,params){
+  try {
+      const models = await Artist.findByIdAndUpdate(id,params,{new:true})
+    
+      return models
+  } catch (error) {
+      console.log(error);
+  }
+}
 module.exports = {
   createArtist,
-  getAllArtist
+  getAllArtist,
+  updateArtist
 }

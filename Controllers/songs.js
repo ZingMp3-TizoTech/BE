@@ -15,7 +15,8 @@ async function createSong(req, res) {
             url: req.body.url,
             artist: req.body.artist,
             image: req.body.image,
-            album: req.body.album
+            album: req.body.album,
+            genre:req.body.genre
         })
 
         if (!song) {
@@ -83,7 +84,8 @@ async function updateSong(req, res) {
             url: req.body.url,
             artist: req.body.artist,
             image: req.body.image,
-            album: req.body.album
+            album: req.body.album,
+            genre:req.body.genre
         }
         )
         console.log(updated);

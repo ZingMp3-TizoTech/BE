@@ -30,6 +30,10 @@ async function getAllSongs() {
           path:'album',
           select:{_id:1,name:1}
       })
+   .populate({
+        path:'genre',
+        select:{_id:1,zone:1}
+    })
       return song
     } catch (error) {
       console.log(error)

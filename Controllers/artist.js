@@ -42,7 +42,39 @@ async function getAllArtist(req, res)
         console.log(error)
     }
 }
+async function updateArtist(req, res)
+{
+    try {
+       
+        function titleCase(str) {
+            var convertToArray = str.toLowerCase().split(' ');
+            var result = convertToArray.map(function(val) {
+              return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+            });
+            
+            return result.join(' ');
+          }
+          const name=titleCase(req.body.name)
+        const updated = await Services.updateArtist(
+            req.params.id,{
+                name: name,
+                gender: req.body.gender,
+                image:req.body.image,
+                age:req.body.age,
+                genre:req.body.genre
+            }
+        )
+        console.log(updated);
+        if(!updated){
+            return res.status(402).json({ status: 402, message: "Artist not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: updated, message: "Update success!" })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createArtist,
-    getAllArtist
+    getAllArtist,
+    updateArtist
 }

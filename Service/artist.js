@@ -16,9 +16,18 @@ async function getAllArtist(){
         console.log(error);
     }
 }
+async function updateArtist(id, params){
+    try {
+        const updated = await Artist.updateArtist(id, params)
+        return updated;
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
    
     createArtists,
-    getAllArtist
+    getAllArtist,
+    updateArtist
 }
  
