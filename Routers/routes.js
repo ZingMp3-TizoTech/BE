@@ -7,6 +7,7 @@ const ControllerGenre = require('../Controllers/genre')
 const ControllerArtist = require('../Controllers/artist');
 const ControllerAlbum = require('../Controllers/album')
 const ControllerSong = require('../Controllers/songs')
+const ControllerSearch = require('../Controllers/search')
 const {authenToken} = require("../middleware/auth");
 
 //ROLE
@@ -29,6 +30,7 @@ router.put("/playlist/add/:id", ControllerPlaylist.addSongToPlaylist )
 router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
 // //GENRE
 router.post("/genre", authenToken, ControllerGenre.createGenre)
+router.get("/genre/:id", ControllerGenre.getAllSongByGenre)
 router.get("/genres", ControllerGenre.getAllGenre)
 router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
 router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
@@ -49,5 +51,6 @@ router.get("/songs", ControllerSong.getAllSong)
 router.delete("/song/:id",)
 router.put("/song/:id", authenToken, ControllerSong.updateSong)
 router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
-
+//Search
+router.post("/search",ControllerSearch.searchInAlbum)
 module.exports = router;

@@ -32,7 +32,7 @@ tableUser.pre('save', async function (next) {
 
 
 tableUser.statics.findByCredentials = async (email, password) => {
-    // Search for a user by email and password.
+    //  for a user by email and password.
   
     const user = await User.findOne({ email })
     if (!user) {

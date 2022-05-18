@@ -34,11 +34,21 @@ async function updateGenre(id, params){
         console.log(error);
     }
 }
+async function getAllSongByGenre(id){
+    try {
+        console.log("test",id);
+        const result = await genre.getAllSongByGenre(id);
+        return result;
+    } catch(error) {
+        console.log(error);
+    }
+}
 module.exports = {
    
     createGenre,
     getAllGenre,
     deleteGenre,
-    updateGenre
+    updateGenre,
+    getAllSongByGenre
 }
  
