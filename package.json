@@ -25,6 +25,6 @@
     "nodemon": "^2.0.15",
     "serve": "^13.0.2",
     "heroku-start": "serve -s build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run start"
   }
 }
