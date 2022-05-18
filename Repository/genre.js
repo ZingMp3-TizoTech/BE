@@ -43,5 +43,5 @@ module.exports={
     getAllGenre,
     deleteGenre,
     updateGenre,
-    getAllSongByGenre
+    
 }
