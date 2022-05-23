@@ -1,3 +1,4 @@
+const { authenToken } = require('../middleware/auth');
 const Services = require('../Service/album')
 async function createAlbum(req, res) {
     try {
@@ -32,7 +33,6 @@ async function getAllAlbum(req, res)
 {
     try {
         const allalbum = await Services.getAllAlbum()
-        console.log(allalbum);
         if(!allalbum){
             return res.status(402).json({ status: 402, message: "Album not exist!" })
         }

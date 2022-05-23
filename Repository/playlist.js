@@ -70,6 +70,22 @@ async function deletePlaylist(_id){
       console.log(error)
     }
   }
+  async function getPlaylistById(id) {
+    try {
+      const list = await playlist.findById({_id:id})
+      .populate({
+        path: 'user',
+        select: {_id: 1,email:1},       
+      })
+      .populate({
+        path: 'song',
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1},
+      })
+      return list
+    } catch (error) {
+      console.log(error)
+    }
+  }
   async function addSongToPlaylist(id,params){
     
     try {
@@ -102,6 +118,7 @@ module.exports={
     deletePlaylist,
     getAllPlaylist,
     getPlaylistByUser,
+    getPlaylistById,
     addSongToPlaylist,
     removeSongFromPlaylist
 }

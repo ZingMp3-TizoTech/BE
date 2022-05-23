@@ -42,6 +42,15 @@ async function getPlaylistByUser(id)
         console.log(error)
     }
 }
+async function getPlaylistById(id)
+{
+    try {
+        const byID = await Repository.getPlaylistById(id)
+        return byID
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function addSongToPlaylist(id,params){
     try {
         const added = await Repository.addSongToPlaylist(id,params);
@@ -65,6 +74,7 @@ module.exports = {
     deletePlaylist,
     getAllPlaylist,
     getPlaylistByUser,
+    getPlaylistById,
     addSongToPlaylist,
     removeSongFromPlaylist
 }

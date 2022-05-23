@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const ServiceRole = require('../Service/role');
 const { getInforByToken } = require('../middleware/authToken');
 const { checkEmail } = require('../Repository/user');
+
 require("dotenv").config();
 async function Signup(req, res) {
     try {
@@ -30,14 +31,15 @@ async function Signup(req, res) {
     }
 }
 async function login(req, res) {
-    try {
+    try {            
         const { email, password } = req.body
         const account = await Services.login(email, password)
 
         if (!account) {
             return res.status(400).json({ status: 400, message: "Login Fails!" })
         }
-        return res.status(200).json({ status: 200, token: jwt.sign({ _id: account._id, email: account.email, role: account.role }, process.env.JWT_KEY), message: "Succesfully Login" })
+        return res.status(200).json({ status: 200, token: jwt.sign({ _id: account._id, email: account.email, role: account.role }, process.env.JWT_KEY),
+         message: "Success Login",data:{id:account._id}})
     } catch (error) {
         console.log(error)
     }

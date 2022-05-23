@@ -1,4 +1,5 @@
 const Services = require('../Service/playlist')
+const jwt = require("jsonwebtoken");
 async function createPlaylist(req, res) {
     try {
         var date= new Date()
@@ -85,9 +86,29 @@ async function getAllPlaylist(req, res) {
         console.log(error)
     }
 }
+async function getPlaylistById(req, res) {
+    try {
+        const all = await Services.getPlaylistById(req.params.id)
+        console.log(all);
+        if (!all) {
+            return res.status(402).json({ status: 402, message: "Playlist not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: all })
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function getPlaylistByUser(req,res) {
     try {
-        const id = req.params.id.toString().trim();
+        let id = ''
+        ///Mã hóa token và trả v
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log("id la");
         const all = await Services.getPlaylistByUser(id)
         console.log(all);
         if (!all) {
@@ -139,6 +160,7 @@ module.exports = {
     deletePlaylist,
     getAllPlaylist,
     getPlaylistByUser,
+    getPlaylistById,
     addSongToPlaylist,
     removeSongFromPlaylist
    
