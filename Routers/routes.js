@@ -29,7 +29,7 @@ router.get("/playlist",ControllerPlaylist.getPlaylistByUser)
 router.get("/playlist/:id",ControllerPlaylist.getPlaylistById)
 router.put("/playlist/add/:id", ControllerPlaylist.addSongToPlaylist )
 router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
- //Genr
+ //Genre
 router.post("/genre", authenToken, ControllerGenre.createGenre)
 router.get("/genres", ControllerGenre.getAllGenre)
 router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
