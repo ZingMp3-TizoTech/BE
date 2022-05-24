@@ -4,7 +4,14 @@ async function createPlaylist(req, res) {
     try {
         var date= new Date()
         console.log(date);
-       
+        let id = ''
+        ///Mã hóa token và trả ve
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
         function titleCase(str) {
             var convertToArray = str.toLowerCase().split(' ');
             var result = convertToArray.map(function(val) {
@@ -17,7 +24,7 @@ async function createPlaylist(req, res) {
         const playlist = await Services.createPlaylist({
             name: name,
             date_create: date,
-            user:req.body.user,
+            user:id,
             song:req.body.song
         })
 
@@ -101,14 +108,14 @@ async function getPlaylistById(req, res) {
 async function getPlaylistByUser(req,res) {
     try {
         let id = ''
-        ///Mã hóa token và trả v
+        ///Mã hóa token và trả ve
         const token = req.header('Authorization').replace('Bearer ', '')
         if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
         jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
             id = data._id
         }
         )
-        console.log("id la");
+      
         const all = await Services.getPlaylistByUser(id)
         console.log(all);
         if (!all) {

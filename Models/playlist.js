@@ -16,10 +16,12 @@ const playlist = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    song: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Songs'
-    }
+    song: 
+    [ 
+        {
+        type: mongoose.Schema.Types.ObjectId, 
+        required:false,   
+        ref: 'Songs'}
     ]
 
 })
