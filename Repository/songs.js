@@ -33,6 +33,9 @@ async function getAllSongs() {
    .populate({
         path:'genre',
         select:{_id:1,zone:1}
+    }).populate({
+      path: 'artist',
+      select: {_id: 1,name:1,image:1},
     })
       return song
     } catch (error) {

@@ -3,8 +3,7 @@ require("dotenv").config();
 const songs = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-       
+        required: true,      
     },
     url:{
         type: String,
@@ -25,6 +24,12 @@ const songs = new mongoose.Schema({
     genre:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'genre',
+    },
+    rates:{
+        type:Number
+    },
+    listens:{
+        type: Number
     }
     
 
