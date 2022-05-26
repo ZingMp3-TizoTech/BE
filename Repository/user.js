@@ -17,8 +17,6 @@ async function createUser(params) {
 async function login(email, password) {
   try {
     const acc = await Models.findByCredentials(email, password)
-   
-    //   const token = await account.generateAuthToken(username, password)
     if (!acc) {
       return new Error("Login Fails!")
     }
@@ -89,6 +87,33 @@ async function checkEmail(Email){
     console.log(error);
   }
 }
+async function addSongToLiked(id,id_songs){
+    
+  try {
+    console.log('id songs',id_songs);
+     const added=  Models.findByIdAndUpdate(
+         { _id: id }, 
+         { $addToSet: { liked:id_songs} 
+        } 
+     );
+   
+   return added;
+  } catch (error) {
+      console.log(error);
+  }
+}
+async function removeSongToLiked(id,id_songs){
+
+try {
+   const removed=  Models.findByIdAndUpdate(
+       { _id: id }, 
+       { $pullAll: { liked: [id_songs] } } 
+   );
+ return removed;
+} catch (error) {
+    console.log(error);
+}
+}
 module.exports = {
   login,
   createUser,
@@ -96,5 +121,7 @@ module.exports = {
   deleteUser,
   changePassword,
   getUserByID,
-  checkEmail
+  checkEmail,
+  addSongToLiked,
+  removeSongToLiked
 }

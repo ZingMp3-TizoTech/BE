@@ -18,7 +18,8 @@ async function Signup(req, res) {
             const user = await Services.Signup({
                 email: req.body.email,
                 password: req.body.password,
-                role: findRole
+                role: findRole,
+                liked:[]
             })
             if (!user) {
                 return res.status(400).json({ status: 400, message: "Creating failed user!" })
@@ -116,11 +117,61 @@ async function getUserByID(req, res) {
         console.log(error)
     }
 }
+
+async function addSongToLiked(req, res)
+{
+    try {
+        let id = ''
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log("id la");
+        console.log(req.body.liked);
+        const updated = await Services.addSongToLiked(
+                id, req.body.liked)
+      
+        if(!updated){
+            return res.status(402).json({ status: 402, message: "User not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: updated })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function removeSongFromLiked(req, res)
+{
+    try {
+        let id = ''
+        const token = req.header('Authorization').replace('Bearer ', '')
+        if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
+        jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+            id = data._id
+        }
+        )
+        console.log(req.body.liked);
+        const removed = await Services.removeSongFromLiked(
+            id,req.body.liked
+            
+        )       
+        if(!removed){
+            return res.status(402).json({ status: 402, message: "User not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: removed })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     Signup,
     login,
     getAllUser,
     deleteUser,
     changePassword,
-    getUserByID
+    getUserByID,
+    addSongToLiked,
+    removeSongFromLiked
 }

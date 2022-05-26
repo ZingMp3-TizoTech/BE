@@ -54,11 +54,29 @@ async function getUserByID(id) {
         console.log(error)
     }
 }
+async function addSongToLiked(id,id_songs){
+    try {
+        const added = await Repository.addSongToLiked(id,id_songs);
+        return added;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function removeSongFromLiked(id,id_songs){
+    try {
+        const removed = await Repository.removeSongToLiked(id,id_songs);
+        return removed;
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     Signup,
     login,
     changePassword,
     getAllUser,
     deleteUser,
-    getUserByID
+    getUserByID,
+    addSongToLiked,
+    removeSongFromLiked
 }

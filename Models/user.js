@@ -17,6 +17,12 @@ const tableUser = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'role',
     },
+    liked:[{
+        type :mongoose.Schema.Types.ObjectId,
+        ref:'Songs'
+    }]
+
+    
    
 })
 tableUser.pre('save', async function (next) {
