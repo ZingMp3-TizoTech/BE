@@ -28,7 +28,7 @@ async function getAllAlbum() {
         select: { _id: 1, name: 1,image:1 },
     }).populate({
         path: 'songs',
-        select: { _id: 1, name: 1,url:1,image:1 },
+        select: { _id: 1, name: 1,url:1,image:1,rates:1, listens:1},
     });
       return models
     } catch (error) {
@@ -43,7 +43,7 @@ async function getAllAlbum() {
         select: { _id: 1, name: 1,image:1 },
     }).populate({
         path: 'songs',
-        select: { _id: 1, name: 1,url:1,image:1 },
+        select: { _id: 1, name: 1,url:1,image:1,rates:1, listens:1 },
     });
       return models
     } catch (error) {
