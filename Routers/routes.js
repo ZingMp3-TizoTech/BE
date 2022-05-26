@@ -51,6 +51,7 @@ router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
 router.delete("/song/:id",)
 router.put("/song/:id", authenToken, ControllerSong.updateSong)
+router.put("/song/like/:id", ControllerSong.updateRateAndListen)
 router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
 //Search
 router.post("/search",ControllerSearch.searchInAlbum)

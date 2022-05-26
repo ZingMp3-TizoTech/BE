@@ -101,10 +101,29 @@ async function updateSong(req, res) {
         console.log(error)
     }
 }
+async function updateRateAndListen(req, res) {
+    try {
+    
+        const updated = await Services.updateSong(
+            req.params.id, {
+            rates:req.body.rates,
+            listens:req.body.listens
+        }
+        )
+        console.log(updated);
+        if (!updated) {
+            return res.status(402).json({ status: 402, message: "Song not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: updated })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createSong,
     getAllSong,
     deleteSong,
     updateSong,
-    getSongsByArtist
+    getSongsByArtist,
+    updateRateAndListen
 }

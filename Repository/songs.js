@@ -53,7 +53,7 @@ async function getAllSongs() {
     }
   }
 
-  async function updateSong(id,params){
+async function updateSong(id,params){
     try {
         const models = await songs.findByIdAndUpdate(id,params,{new:true})
         return models
@@ -77,10 +77,12 @@ async function getAllByArtist(id){
     console.log(error)
   }
 }
+
 module.exports={
     createSong,
     getAllSongs,
     deleteSong,
     updateSong,
-    getAllByArtist
+    getAllByArtist,
+    
 }
