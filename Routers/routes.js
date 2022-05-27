@@ -36,11 +36,11 @@ router.post("/genre", authenToken, ControllerGenre.createGenre)
 router.get("/genres", ControllerGenre.getAllGenre)
 router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
 router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
-  //Artist
+//Artist
 router.post("/artist",authenToken,ControllerArtist.createArtist)
 router.get("/artists",ControllerArtist.getAllArtist)
 router.put("/artist/:id",ControllerArtist.updateArtist)
- //Album
+ //Albu
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
 router.get("/album/:id", ControllerAlbum.getAlbumByID)
