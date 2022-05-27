@@ -91,9 +91,9 @@ async function addSongToLiked(id,id_songs){
     
   try {
     console.log('id songs',id_songs);
-     const added=  Models.findByIdAndUpdate(
+     const added=  Models.findOneAndUpdate(
          { _id: id }, 
-         { $addToSet: { liked:id_songs} 
+         { $addToSet: { liked:[id_songs]} 
         } 
      );
    

@@ -47,11 +47,16 @@ async function deletePlaylist(_id){
       })    
       .populate({
         path: 'song',
-        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1},
-        populate: {
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1}
+        ,populate: [
+          {
           path: 'artist',
           select: {_id: 1,name:1,image:1}
-        }
+         },
+         {
+          path: 'album',
+          select: {_id: 1,name:1}
+        }] 
       })
       return list
     } catch (error) {
@@ -67,7 +72,16 @@ async function deletePlaylist(_id){
       })
       .populate({
         path: 'song',
-        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1},
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1}
+        ,populate: [
+          {
+          path: 'artist',
+          select: {_id: 1,name:1,image:1}
+         },
+         {
+          path: 'album',
+          select: {_id: 1,name:1}
+        }] 
       })
       return list
     } catch (error) {
@@ -83,7 +97,16 @@ async function deletePlaylist(_id){
       })
       .populate({
         path: 'song',
-        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1},
+        select: {_id: 1,name:1,url:1,artist:1,image:1,album:1,rates:1, listens:1}
+        ,populate: [
+          {
+          path: 'artist',
+          select: {_id: 1,name:1,image:1}
+         },
+         {
+          path: 'album',
+          select: {_id: 1,name:1}
+        }]  
       })
       return list
     } catch (error) {
