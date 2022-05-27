@@ -101,6 +101,7 @@ async function getUserByID(req, res) {
         const token = req.header('Authorization').replace('Bearer ', '')
         if (!token) res.status(401).send({ error: 'Not authorized to access this resource' })
         jwt.verify(token, process.env.JWT_KEY, async (err, data) => {
+          
             id = data._id
         }
         )

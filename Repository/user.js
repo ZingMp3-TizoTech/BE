@@ -67,7 +67,10 @@ async function getAllUser() {
 }
 async function getUserByID(id){
   try {  
-    const models = await Models.find({_id:id});
+    const models = await Models.find({_id:id}).populate({
+      path: 'role',
+      select: {name:1},
+    })  ;
     return models
   } catch (error) {
     console.log(error)
