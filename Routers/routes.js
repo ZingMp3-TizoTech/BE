@@ -13,6 +13,7 @@ const {authenToken} = require("../middleware/auth");
 //ROLE
 router.post("/role/create",authenToken, ControllerRole.createRole)
 router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
+
 //USER
 router.post("/signup", ControllerUser.Signup)
 router.post("/login", ControllerUser.login)
@@ -22,6 +23,7 @@ router.get("/user/", ControllerUser.getUserByID)
 router.delete("/user/:id", authenToken, ControllerUser.deleteUser)
 router.put("/user/like", ControllerUser.addSongToLiked )
 router.put("/user/unlike", ControllerUser.removeSongFromLiked)
+
 //PLAYLIST
 router.post("/playlist", ControllerPlaylist.createPlaylist)
 router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
@@ -31,15 +33,18 @@ router.get("/playlist",ControllerPlaylist.getPlaylistByUser)
 router.get("/playlist/:id",ControllerPlaylist.getPlaylistById)
 router.put("/playlist/add/:id", ControllerPlaylist.addSongToPlaylist )
 router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
+
  //Genre
 router.post("/genre", authenToken, ControllerGenre.createGenre)
 router.get("/genres", ControllerGenre.getAllGenre)
 router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
 router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
+
 //Artist
 router.post("/artist",authenToken,ControllerArtist.createArtist)
 router.get("/artists",ControllerArtist.getAllArtist)
 router.put("/artist/:id",ControllerArtist.updateArtist)
+
  //Album
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
@@ -48,6 +53,7 @@ router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum)
 router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
 router.put("/album/add/:id", ControllerAlbum.addSongToAlbum )
 router.put("/album/remove/:id", ControllerAlbum.removeSongFromAlbum )
+
 //Song
 router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
