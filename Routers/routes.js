@@ -57,6 +57,7 @@ router.put("/album/remove/:id", ControllerAlbum.removeSongFromAlbum )
 //Song
 router.post("/song/",  authenToken, ControllerSong.createSong )
 router.get("/songs", ControllerSong.getAllSong)
+router.get("/song/:id", ControllerSong.getSongById)
 router.delete("/song/:id",)
 router.put("/song/:id", authenToken, ControllerSong.updateSong)
 router.put("/song/like/:id", ControllerSong.updateRateAndListen)

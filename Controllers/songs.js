@@ -30,12 +30,24 @@ async function createSong(req, res) {
     }
 }
 
+async function getSongById(req, res) {
+    try {
+        const allsongs = await Services.getSongById(req.params.id.toString().trim())
+        console.log(allsongs);
+        if (!allsongs) {
+            return res.status(402).json({ status: 402, message: "Song not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: allsongs })
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function getAllSong(req, res) {
     try {
         const allsongs = await Services.getAllSong()
         console.log(allsongs);
         if (!allsongs) {
-            return res.status(402).json({ status: 402, message: "Album not exist!" })
+            return res.status(402).json({ status: 402, message: "Song not exist!" })
         }
         return res.status(200).json({ status: 200, data: allsongs })
     } catch (error) {
@@ -125,5 +137,6 @@ module.exports = {
     deleteSong,
     updateSong,
     getSongsByArtist,
-    updateRateAndListen
+    updateRateAndListen,
+    getSongById
 }

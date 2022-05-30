@@ -61,6 +61,29 @@ async function updateSong(id,params){
         console.log(error);
     }
 } 
+async function getSongById(id){
+  try {
+      const models = await songs.findById({_id:id})
+      .populate({
+        path: 'artist',
+        select: {_id: 1,name:1,image:1},
+      })
+ .populate({
+          path:'album',
+          select:{_id:1,name:1}
+      })
+   .populate({
+        path:'genre',
+        select:{_id:1,zone:1}
+    }).populate({
+      path: 'artist',
+      select: {_id: 1,name:1,image:1},
+    })
+      return models
+  } catch (error) {
+      console.log(error);
+  }
+}
 async function getAllByArtist(id){
   try {
     const song = await songs.find({artist:id})
@@ -84,5 +107,6 @@ module.exports={
     deleteSong,
     updateSong,
     getAllByArtist,
+    getSongById
     
 }

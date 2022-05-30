@@ -17,6 +17,15 @@ async function getAllSong()
         console.log(error)
     }
 }
+async function getSongById(id)
+{
+    try {
+        const song = await Repository.getSongById(id)
+        return song
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function deleteSong(_id){
     try {
         const result = await Repository.deleteSong(_id);
@@ -47,5 +56,6 @@ module.exports = {
     getAllSong,
     getSongsByArtist,
     deleteSong,
-    updateSong
+    updateSong,
+    getSongById
 }
