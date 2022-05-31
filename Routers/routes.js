@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router()
+var multer  = require('multer');
 const ControllerRole = require('../Controllers/role')
 const ControllerUser = require('../Controllers/user')
 const ControllerPlaylist = require('../Controllers/playlist')
@@ -9,7 +10,7 @@ const ControllerAlbum = require('../Controllers/album')
 const ControllerSong = require('../Controllers/songs')
 const ControllerSearch = require('../Controllers/search')
 const {authenToken} = require("../middleware/auth");
-
+const fileUploader = require('../Controllers/upload');
 //ROLE
 router.post("/role/create",authenToken, ControllerRole.createRole)
 router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
@@ -64,5 +65,12 @@ router.put("/song/like/:id", ControllerSong.updateRateAndListen)
 router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
 //Search
 router.post("/search",ControllerSearch.searchInAlbum)
-
+//upload
+router.post('/upload', fileUploader.single('upload'), (req, res, next) => {
+    if (!req.file) {
+      next(new Error('No file uploaded!'));
+      return;
+    }   
+    res.json({ secure_url: req.file.path });
+  });
 module.exports = router;
