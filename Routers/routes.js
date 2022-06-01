@@ -11,6 +11,14 @@ const ControllerSong = require('../Controllers/songs')
 const ControllerSearch = require('../Controllers/search')
 const {authenToken} = require("../middleware/auth");
 const fileUploader = require('../Controllers/upload');
+//upload
+router.post('/upload', fileUploader.single('upload'), (req, res, next) => {
+    if (!req.file) {
+      next(new Error('No file uploaded!'));
+      return;
+    }   
+    res.json({ secure_url: req.file.path });
+  });
 //ROLE
 router.post("/role/create",authenToken, ControllerRole.createRole)
 router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
@@ -45,8 +53,8 @@ router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
 router.post("/artist",authenToken,ControllerArtist.createArtist)
 router.get("/artists",ControllerArtist.getAllArtist)
 router.put("/artist/:id",ControllerArtist.updateArtist)
-
- //Album
+router.delete("/artist/:id",ControllerArtist.deleteArtist)
+//Album
 router.post("/album/", authenToken, ControllerAlbum.createAlbum )
 router.get("/albums", ControllerAlbum.getAllAlbum)
 router.get("/album/:id", ControllerAlbum.getAlbumByID)
@@ -65,12 +73,4 @@ router.put("/song/like/:id", ControllerSong.updateRateAndListen)
 router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
 //Search
 router.post("/search",ControllerSearch.searchInAlbum)
-//upload
-router.post('/upload', fileUploader.single('upload'), (req, res, next) => {
-    if (!req.file) {
-      next(new Error('No file uploaded!'));
-      return;
-    }   
-    res.json({ secure_url: req.file.path });
-  });
 module.exports = router;

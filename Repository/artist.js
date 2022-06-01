@@ -39,8 +39,18 @@ async function updateArtist(id,params){
       console.log(error);
   }
 }
+
+async function deleteArtist(id){
+  try {
+      const removed = await Artist.findByIdAndRemove({_id:id})
+      return removed
+  } catch (error) {
+      console.log(error);
+  }
+}
 module.exports = {
   createArtist,
   getAllArtist,
-  updateArtist
+  updateArtist,
+  deleteArtist
 }

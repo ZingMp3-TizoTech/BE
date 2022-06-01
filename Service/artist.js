@@ -24,10 +24,19 @@ async function updateArtist(id, params){
         console.log(error);
     }
 }
+async function deleteArtist(id){
+    try {
+        const updated = await Artist.deleteArtist(id)
+        return updated;
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
    
     createArtists,
     getAllArtist,
-    updateArtist
+    updateArtist,
+    deleteArtist
 }
  

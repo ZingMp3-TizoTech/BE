@@ -73,8 +73,22 @@ async function updateArtist(req, res)
         console.log(error)
     }
 }
+async function deleteArtist(req, res) {
+    try{
+        const _id = req.params.id.toString().trim();
+      
+        const result = await Services.deleteArtist(_id)
+        if(!result) {
+            return res.status(402).json({status:402, message: "delete fail!"})
+        }
+        return res.status(200).json({status:200, message: "delete successfully!"})
+    } catch (error){
+        console.log(erorr);
+    }
+}
 module.exports = {
     createArtist,
     getAllArtist,
-    updateArtist
+    updateArtist,
+    deleteArtist
 }
