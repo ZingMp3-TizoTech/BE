@@ -20,15 +20,37 @@ async function createArtist (params){
   async function getAllArtist()
 {
     try {
-        const models = await Artist.find({})
+        const models = await Artist.find({}).populate({
+            path: 'genre',
+            select: {_id: 1,zone:1},
+          })
       
         return models
     } catch (error) {
         console.log(error)
     }
 }
+async function updateArtist(id,params){
+  try {
+      const models = await Artist.findByIdAndUpdate(id,params,{new:true})
+    
+      return models
+  } catch (error) {
+      console.log(error);
+  }
+}
 
+async function deleteArtist(id){
+  try {
+      const removed = await Artist.findByIdAndRemove({_id:id})
+      return removed
+  } catch (error) {
+      console.log(error);
+  }
+}
 module.exports = {
   createArtist,
-  getAllArtist
+  getAllArtist,
+  updateArtist,
+  deleteArtist
 }

@@ -8,8 +8,38 @@ async function createGenre(params){
         console.log(error)
     }
 }
+async function getAllGenre(){
+    try {
+        const gn = await genre.getAllGenre()
+        return gn
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function deleteGenre(id){
+    try{
+        
+        const result = await genre.deleteGenre(id);
+        return result;
+    } catch (error){
+        console.log(error);
+    }
+}
+async function updateGenre(id, params){
+    try {
+        console.log(id);
+        const result = await genre.updateGenre(id, params);
+        return result;
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
    
-    createGenre
+    createGenre,
+    getAllGenre,
+    deleteGenre,
+    updateGenre
 }
  

@@ -1,78 +1,76 @@
 const express = require("express");
 const router = express.Router()
-const Student = require("../Models/models");
-const ClassOfIt = require("../Models/class");
-const ControllerStudents = require('../Controllers/students')
-const ControllerAccounts = require('../Controllers/account')
-const ControllerClass = require('../Controllers/class')
+var multer  = require('multer');
 const ControllerRole = require('../Controllers/role')
 const ControllerUser = require('../Controllers/user')
 const ControllerPlaylist = require('../Controllers/playlist')
 const ControllerGenre = require('../Controllers/genre')
 const ControllerArtist = require('../Controllers/artist');
-const ControllerAlbum= require('../Controllers/album')
-const { required } = require("nodemon/lib/config")
-const authenToken= require("../middleware/auth")
-const Auth = require("../utils/authorization")
-
+const ControllerAlbum = require('../Controllers/album')
+const ControllerSong = require('../Controllers/songs')
+const ControllerSearch = require('../Controllers/search')
+const {authenToken} = require("../middleware/auth");
+const fileUploader = require('../Controllers/upload');
+//upload
+router.post('/upload', fileUploader.single('upload'), (req, res, next) => {
+    if (!req.file) {
+      next(new Error('No file uploaded!'));
+      return;
+    }   
+    res.json({ secure_url: req.file.path });
+  });
 //ROLE
-router.post("/createRole", ControllerRole.createRole)
+router.post("/role/create",authenToken, ControllerRole.createRole)
+router.delete("/role/:id", authenToken, ControllerRole.deleteRole )
+
 //USER
 router.post("/signup", ControllerUser.Signup)
 router.post("/login", ControllerUser.login)
-router.get("/get-all-user",ControllerUser.getAllUser)
-router.delete("/deleteUserById/:id",authenToken,ControllerUser.deleteUser)
+router.put("/change-password", ControllerUser.changePassword)
+router.get("/users", ControllerUser.getAllUser)
+router.get("/user/", ControllerUser.getUserByID)
+router.delete("/user/:id", authenToken, ControllerUser.deleteUser)
+router.put("/user/like", ControllerUser.addSongToLiked )
+router.put("/user/unlike", ControllerUser.removeSongFromLiked)
+
 //PLAYLIST
-router.post("/createPlaylist",ControllerPlaylist.createPlaylist)
-//GENRE
-router.post("/createGenre",ControllerGenre.createGenre)
+router.post("/playlist", ControllerPlaylist.createPlaylist)
+router.put("/playlist/:id", ControllerPlaylist.updatePlaylist)
+router.delete("/playlist/:id", ControllerPlaylist.deletePlaylist)
+router.get("/playlists", ControllerPlaylist.getAllPlaylist)
+router.get("/playlist",ControllerPlaylist.getPlaylistByUser)
+router.get("/playlist/:id",ControllerPlaylist.getPlaylistById)
+router.put("/playlist/add/:id", ControllerPlaylist.addSongToPlaylist )
+router.put("/playlist/remove/:id", ControllerPlaylist.removeSongFromPlaylist )
+
+ //Genre
+router.post("/genre", authenToken, ControllerGenre.createGenre)
+router.get("/genres", ControllerGenre.getAllGenre)
+router.delete("/genre/:id",authenToken, ControllerGenre.deleteGenre)
+router.put("/genre/:id",authenToken, ControllerGenre.updateGenre )
+
 //Artist
-router.post("/createArtist",ControllerArtist.createArtist)
+router.post("/artist",authenToken,ControllerArtist.createArtist)
+router.get("/artists",ControllerArtist.getAllArtist)
+router.put("/artist/:id",ControllerArtist.updateArtist)
+router.delete("/artist/:id",ControllerArtist.deleteArtist)
 //Album
-router.post("/createAlbum",ControllerAlbum.createAlbum)
-//STUDENTS
-router.post("/add-student", ControllerStudents.createStudent);
-router.put("/update-student/:id", ControllerStudents.updateStudent);
+router.post("/album/", authenToken, ControllerAlbum.createAlbum )
+router.get("/albums", ControllerAlbum.getAllAlbum)
+router.get("/album/:id", ControllerAlbum.getAlbumByID)
+router.put("/album/:id",authenToken, ControllerAlbum.updateAlbum)
+router.delete("/album/:id",authenToken, ControllerAlbum.deleteAlbum)
+router.put("/album/add/:id", ControllerAlbum.addSongToAlbum )
+router.put("/album/remove/:id", ControllerAlbum.removeSongFromAlbum )
 
-//CLASS
-router.post("/add-class", ControllerClass.createClass);
-router.get("/all-class", async (request, response) => {
-
-  const Aclass = await ClassOfIt.find({})
-    .populate({
-      path: 'student',
-      select: { name: 1, faculty: 1, _id: 1 },
-    });
-  try {
-    response.send(Aclass);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
-
-
-
-
-router.get('/student-by-name/', async (request, response) => {
-  const name_student = request.body.name;
-  console.log(name_student);
-  const users = await Student.find({ name: name_student });
-  try {
-    response.send(users);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
-router.delete('/delete-student/:id', async (request, response) => {
-  // const id = request.body.id
-  const users = await Student.findByIdAndDelete(request.params.id);
-  try {
-    response.send(users);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
-
-
-
+//Song
+router.post("/song/",  authenToken, ControllerSong.createSong )
+router.get("/songs", ControllerSong.getAllSong)
+router.get("/song/:id", ControllerSong.getSongById)
+router.delete("/song/:id",)
+router.put("/song/:id", authenToken, ControllerSong.updateSong)
+router.put("/song/like/:id", ControllerSong.updateRateAndListen)
+router.get("/songs/filter/artist/:id",ControllerSong.getSongsByArtist)
+//Search
+router.post("/search",ControllerSearch.searchInAlbum)
 module.exports = router;
